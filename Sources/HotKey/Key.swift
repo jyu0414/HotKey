@@ -486,7 +486,7 @@ public enum Key {
         let result = UCKeyTranslate(layout, keyCode, keyaction, modifierKeyState, keyboardType, keyTranslateOptions,
                                     &deadKeyState, maxStringLength, &actualStringLength, &chars)
         
-        return UnicodeScalar(chars[0])!.debugDescription
+        return UnicodeScalar(chars[0])!.description
     }
 }
 
