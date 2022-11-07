@@ -141,6 +141,18 @@ public enum Key {
     case volumeUp
     case volumeDown
     case mute
+    
+    // MARK: - For ISO Layout
+    
+    case section
+    
+    // MARK: - For JIS Layout
+    
+    case yen
+    case underscore
+    case keypadComma
+    case eisu
+    case kana
 
     // MARK: - Initializers
 
@@ -265,71 +277,6 @@ public enum Key {
 
 	public init?(carbonKeyCode: UInt32) {
 		switch carbonKeyCode {
-		case UInt32(kVK_ANSI_A): self = .a
-		case UInt32(kVK_ANSI_S): self = .s
-		case UInt32(kVK_ANSI_D): self = .d
-		case UInt32(kVK_ANSI_F): self = .f
-		case UInt32(kVK_ANSI_H): self = .h
-		case UInt32(kVK_ANSI_G): self = .g
-		case UInt32(kVK_ANSI_Z): self = .z
-		case UInt32(kVK_ANSI_X): self = .x
-		case UInt32(kVK_ANSI_C): self = .c
-		case UInt32(kVK_ANSI_V): self = .v
-		case UInt32(kVK_ANSI_B): self = .b
-		case UInt32(kVK_ANSI_Q): self = .q
-		case UInt32(kVK_ANSI_W): self = .w
-		case UInt32(kVK_ANSI_E): self = .e
-		case UInt32(kVK_ANSI_R): self = .r
-		case UInt32(kVK_ANSI_Y): self = .y
-		case UInt32(kVK_ANSI_T): self = .t
-		case UInt32(kVK_ANSI_1): self = .one
-		case UInt32(kVK_ANSI_2): self = .two
-		case UInt32(kVK_ANSI_3): self = .three
-		case UInt32(kVK_ANSI_4): self = .four
-		case UInt32(kVK_ANSI_6): self = .six
-		case UInt32(kVK_ANSI_5): self = .five
-		case UInt32(kVK_ANSI_Equal): self = .equal
-		case UInt32(kVK_ANSI_9): self = .nine
-		case UInt32(kVK_ANSI_7): self = .seven
-		case UInt32(kVK_ANSI_Minus): self = .minus
-		case UInt32(kVK_ANSI_8): self = .eight
-		case UInt32(kVK_ANSI_0): self = .zero
-		case UInt32(kVK_ANSI_RightBracket): self = .rightBracket
-		case UInt32(kVK_ANSI_O): self = .o
-		case UInt32(kVK_ANSI_U): self = .u
-		case UInt32(kVK_ANSI_LeftBracket): self = .leftBracket
-		case UInt32(kVK_ANSI_I): self = .i
-		case UInt32(kVK_ANSI_P): self = .p
-		case UInt32(kVK_ANSI_L): self = .l
-		case UInt32(kVK_ANSI_J): self = .j
-		case UInt32(kVK_ANSI_Quote): self = .quote
-		case UInt32(kVK_ANSI_K): self = .k
-		case UInt32(kVK_ANSI_Semicolon): self = .semicolon
-		case UInt32(kVK_ANSI_Backslash): self = .backslash
-		case UInt32(kVK_ANSI_Comma): self = .comma
-		case UInt32(kVK_ANSI_Slash): self = .slash
-		case UInt32(kVK_ANSI_N): self = .n
-		case UInt32(kVK_ANSI_M): self = .m
-		case UInt32(kVK_ANSI_Period): self = .period
-		case UInt32(kVK_ANSI_Grave): self = .grave
-		case UInt32(kVK_ANSI_KeypadDecimal): self = .keypadDecimal
-		case UInt32(kVK_ANSI_KeypadMultiply): self = .keypadMultiply
-		case UInt32(kVK_ANSI_KeypadPlus): self = .keypadPlus
-		case UInt32(kVK_ANSI_KeypadClear): self = .keypadClear
-		case UInt32(kVK_ANSI_KeypadDivide): self = .keypadDivide
-		case UInt32(kVK_ANSI_KeypadEnter): self = .keypadEnter
-		case UInt32(kVK_ANSI_KeypadMinus): self = .keypadMinus
-		case UInt32(kVK_ANSI_KeypadEquals): self = .keypadEquals
-		case UInt32(kVK_ANSI_Keypad0): self = .keypad0
-		case UInt32(kVK_ANSI_Keypad1): self = .keypad1
-		case UInt32(kVK_ANSI_Keypad2): self = .keypad2
-		case UInt32(kVK_ANSI_Keypad3): self = .keypad3
-		case UInt32(kVK_ANSI_Keypad4): self = .keypad4
-		case UInt32(kVK_ANSI_Keypad5): self = .keypad5
-		case UInt32(kVK_ANSI_Keypad6): self = .keypad6
-		case UInt32(kVK_ANSI_Keypad7): self = .keypad7
-		case UInt32(kVK_ANSI_Keypad8): self = .keypad8
-		case UInt32(kVK_ANSI_Keypad9): self = .keypad9
 		case UInt32(kVK_Return): self = .`return`
 		case UInt32(kVK_Tab): self = .tab
 		case UInt32(kVK_Space): self = .space
@@ -378,12 +325,24 @@ public enum Key {
 		case UInt32(kVK_RightArrow): self = .rightArrow
 		case UInt32(kVK_DownArrow): self = .downArrow
 		case UInt32(kVK_UpArrow): self = .upArrow
-		default: return nil
+        case UInt32(kVK_ISO_Section): self = .section
+        case UInt32(kVK_JIS_Yen): self = .yen
+        case UInt32(kVK_JIS_Underscore): self = .underscore
+        case UInt32(kVK_JIS_KeypadComma): self = .keypadComma
+        case UInt32(kVK_JIS_Eisu): self = .eisu
+        case UInt32(kVK_JIS_Kana): self = .kana
+        default:
+            if let key = Key(string: Key.convertKeyboardLayout(keyCode: CGKeyCode(carbonKeyCode))) {
+                self = key
+            } else {
+                return nil
+            }
 		}
 	}
 	
 	public var carbonKeyCode: UInt32 {
 		switch self {
+            // TODO: KeyCode does not reflect keyboard layout
 		case .a: return UInt32(kVK_ANSI_A)
 		case .s: return UInt32(kVK_ANSI_S)
 		case .d: return UInt32(kVK_ANSI_D)
@@ -497,8 +456,38 @@ public enum Key {
 		case .rightArrow: return UInt32(kVK_RightArrow)
 		case .downArrow: return UInt32(kVK_DownArrow)
 		case .upArrow: return UInt32(kVK_UpArrow)
+        case .section: return UInt32(kVK_ISO_Section)
+        case .yen: return UInt32(kVK_JIS_Yen)
+        case .underscore: return UInt32(kVK_JIS_Underscore)
+        case .keypadComma: return UInt32(kVK_JIS_KeypadComma)
+        case .eisu: return UInt32(kVK_JIS_Eisu)
+        case .kana: return UInt32(kVK_JIS_Kana)
 		}
 	}
+    
+    private static func convertKeyboardLayout(keyCode: CGKeyCode) -> String {
+        //https://www.appsloveworld.com/swift/100/28/how-to-use-uckeytranslate
+        let keyboard = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
+        let rawLayoutData = TISGetInputSourceProperty(keyboard, kTISPropertyUnicodeKeyLayoutData)
+        
+        let layoutData = unsafeBitCast(rawLayoutData, to: CFData.self)
+        let layout: UnsafePointer<UCKeyboardLayout> = unsafeBitCast(CFDataGetBytePtr(layoutData), to: UnsafePointer<UCKeyboardLayout>.self)
+
+        let keyaction = UInt16(kUCKeyActionDisplay)
+        let modifierKeyState = UInt32(0)
+        let keyboardType = UInt32(LMGetKbdType())
+        
+        let keyTranslateOptions = OptionBits(kUCKeyTranslateNoDeadKeysBit)
+        var deadKeyState = UInt32(0)
+        let maxStringLength = 1
+        var chars: [UniChar] = [0]
+        var actualStringLength = 1
+        
+        let result = UCKeyTranslate(layout, keyCode, keyaction, modifierKeyState, keyboardType, keyTranslateOptions,
+                                    &deadKeyState, maxStringLength, &actualStringLength, &chars)
+        
+        return UnicodeScalar(chars[0])!.debugDescription
+    }
 }
 
 extension Key: CustomStringConvertible {
@@ -603,6 +592,12 @@ extension Key: CustomStringConvertible {
         case .rightArrow: return "→"
         case .downArrow: return "↓"
         case .upArrow: return "↑"
+        case .section: return "§"
+        case .yen: return "¥"
+        case .underscore: return "_"
+        case .keypadComma: return ","
+        case .eisu: return "英数"
+        case .kana: return "かな"
         }
     }
 }
